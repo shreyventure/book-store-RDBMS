@@ -7,10 +7,32 @@
       rel="stylesheet"
       href="https://bootswatch.com/4/darkly/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="/devLogin.css" />
     <title>Book Store</title>
   </head>
   <body>
-    <div class="row mt-5">
+    <% if (false) {%>
+    <div
+      id="success"
+      onload="fade_out"
+      class="card card-body"
+      style="display: flex; justify-content: space-between"
+    >
+      <div>
+        <h4 style="color: rgb(241, 116, 116)">
+          User not found. Make sure you enter correct credentials.
+          <button
+            class="btn btn-danger"
+            style="width: 35px; height: 35px; float: right"
+            onclick="setTimeout(function () {document.getElementById('success').style.display='none'}, 50); return false"
+          >
+            X
+          </button>
+        </h4>
+      </div>
+    </div>
+    <%}%>
+    <div class="mt-5">
       <div class="col-md-6 m-auto">
         <div class="card card-body">
           <h1 class="text-center mb-3">Login</h1>

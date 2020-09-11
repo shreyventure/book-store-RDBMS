@@ -1,21 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const beautify = require("json-beautify");
-const bcrypt = require("bcrypt");
+const passport = require("passport");
 
-var isDev = false;
-var user = "";
-
-const ensureAuthenticated = (req, res, next) => {
-  if (isDev) {
+const ensureAuthenticatedDEV = (req, res, next) => {
+  if (req.isAuthenticated()) {
     return next();
   } else {
     res.redirect("/products/login");
   }
 };
 
-const forwardAuthenticated = (req, res, next) => {
-  if (!isDev) {
+const forwardAuthenticatedDEV = (req, res, next) => {
+  if (!req.isAuthenticated()) {
     return next();
   } else {
     res.redirect("/products/dev/dashboard");
@@ -49,52 +46,31 @@ DB.connect((err) => {
 
 //route   GET (/products/login)
 // desc   log developers in
-router.get("/login", forwardAuthenticated, (req, res) => {
-  res.render("devLogin", {
-    attempt: false,
-  });
+router.get("/login", forwardAuthenticatedDEV, (req, res) => {
+  res.render("devLogin", {});
 });
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  const Q = `SELECT * FROM dev WHERE username="${username}"`;
-  DB.query(Q, (err, result) => {
-    if (err) throw err;
-
-    if (result.length === 0) {
-      res.render("devLogin", {
-        user: false,
-      });
-    } else {
-      bcrypt.compare(password, result[0].password, function (err, Result) {
-        if (Result) {
-          isDev = true;
-          user = username;
-          res.redirect("/products/dev/dashboard");
-        } else {
-          res.render("devLogin", {
-            attempt: true,
-          });
-        }
-      });
-    }
-  });
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: `/products/dev/dashboard`,
+    failureRedirect: "/products/login",
+  })(req, res, next);
 });
 router.get("/logout", (req, res) => {
-  isDev = false;
+  req.logout();
   res.redirect("/products/login");
 });
 
 // route GET (/products/dev/dashboard)
 // desc developer's dashboard
-router.get("/dev/dashboard", ensureAuthenticated, (req, res) => {
+router.get("/dev/dashboard", ensureAuthenticatedDEV, (req, res) => {
   res.render("devDashboard", {
-    name: user,
+    name: req.user.username,
   });
 });
 
 // route  GET (/products)
 // desc   fetch products from database
-router.get("/", ensureAuthenticated, (req, res) => {
+router.get("/", ensureAuthenticatedDEV, (req, res) => {
   DB.query("SELECT * FROM products", (err, results) => {
     if (err) throw err;
     console.log(beautify(results, null, 2, 100));
@@ -104,12 +80,12 @@ router.get("/", ensureAuthenticated, (req, res) => {
 
 // route  GET (/products/add)
 // desc   add product to database
-router.get("/add", ensureAuthenticated, (req, res) => {
+router.get("/add", ensureAuthenticatedDEV, (req, res) => {
   res.render("addProduct", {
     add: false,
   });
 });
-router.post("/add", ensureAuthenticated, (req, res) => {
+router.post("/add", ensureAuthenticatedDEV, (req, res) => {
   console.log(req.body);
   const { name, availability, cost, image, description } = req.body;
 
@@ -131,18 +107,18 @@ router.post("/add", ensureAuthenticated, (req, res) => {
 
 // route  GET (/products/update)
 // desc   update products in database
-router.get("/update", ensureAuthenticated, (req, res) => {
+router.get("/update", ensureAuthenticatedDEV, (req, res) => {
   res.send("updateProduct");
 });
 
 // route  GET (/products/delete)
 // desc   delete products from database
-router.get("/delete", ensureAuthenticated, (req, res) => {
+router.get("/delete", ensureAuthenticatedDEV, (req, res) => {
   res.render("deleteProduct", {
     del: false,
   });
 });
-router.post("/delete", ensureAuthenticated, (req, res) => {
+router.post("/delete", ensureAuthenticatedDEV, (req, res) => {
   const name = req.body.name;
   let sql = `DELETE FROM products WHERE name = '${name}'`;
 

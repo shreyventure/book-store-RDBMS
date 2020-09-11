@@ -1,0 +1,12 @@
+.form-group ::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+.form-group input {
+  background-color: grey;
+  color: whitesmoke;
+}
+.form-group input:focus {
+  background-color: grey;
+  color: whitesmoke;
+}
