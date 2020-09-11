@@ -29,7 +29,7 @@ module.exports = function (passport) {
 
           if (result.length === 0) {
             return done(null, false, {
-              message: "That username is not registered",
+              message: "Username not registered",
             });
           } else {
             bcrypt.compare(password, result[0].password, function (

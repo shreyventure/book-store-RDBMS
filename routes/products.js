@@ -5,6 +5,7 @@ const passport = require("passport");
 
 const ensureAuthenticatedDEV = (req, res, next) => {
   if (req.isAuthenticated()) {
+    req.flash("error_msg", "Please log in to view that resource");
     return next();
   } else {
     res.redirect("/products/login");
@@ -53,6 +54,7 @@ router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: `/products/dev/dashboard`,
     failureRedirect: "/products/login",
+    failureFlash: true,
   })(req, res, next);
 });
 router.get("/logout", (req, res) => {

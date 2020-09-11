@@ -11,30 +11,10 @@
     <title>Book Store</title>
   </head>
   <body>
-    <% if (false) {%>
-    <div
-      id="success"
-      onload="fade_out"
-      class="card card-body"
-      style="display: flex; justify-content: space-between"
-    >
-      <div>
-        <h4 style="color: rgb(241, 116, 116)">
-          User not found. Make sure you enter correct credentials.
-          <button
-            class="btn btn-danger"
-            style="width: 35px; height: 35px; float: right"
-            onclick="setTimeout(function () {document.getElementById('success').style.display='none'}, 50); return false"
-          >
-            X
-          </button>
-        </h4>
-      </div>
-    </div>
-    <%}%>
     <div class="mt-5">
       <div class="col-md-6 m-auto">
         <div class="card card-body">
+          <%- include('./partials/messages'); %>
           <h1 class="text-center mb-3">Login</h1>
           <form action="/products/login" method="POST">
             <div class="form-group">

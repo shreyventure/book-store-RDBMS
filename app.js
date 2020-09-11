@@ -1,9 +1,10 @@
 const express = require("express");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
+const flash = require("connect-flash");
 
 const app = express();
 
@@ -30,8 +31,22 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 // Routes
 app.use("/products", require("./routes/products.js"));
+app.get("*", (req, res) => {
+  res.redirect("/products/login");
+});
 
 // Server
 app.listen(PORT, console.log(`Listening at port: ${PORT}`));
