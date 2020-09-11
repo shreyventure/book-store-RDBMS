@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/devDashboard.css" />
+    <title>Book Store</title>
+  </head>
+  <body>
+    <div class="grey">
+      <div class="header">
+        <h3>Welcome <%= name %> !</h3>
+        <a class="btn btn-danger" href="/products/logout">Logout</a>
+      </div>
+      <p>This is your dev dashboard.</p>
+    </div>
+    <div class="container">
+      <h4>Manipulate Database</h4>
+      <div class="links">
+        <a href="/products/add" class="btn btn-primary btn-block"
+          >Add Product</a
+        >
+        <a href="/products/delete" class="btn btn-primary btn-block"
+          >Delete Product</a
+        >
+        <a href="/products/update" class="btn btn-primary btn-block"
+          >Update Product</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

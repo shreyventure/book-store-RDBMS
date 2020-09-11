@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+    />
+    <title>Book Store</title>
+  </head>
+  <body>
+    <% if (del && no) {%>
+    <div
+      id="success"
+      onload="fade_out"
+      class="card card-body"
+      style="display: flex; justify-content: space-between"
+    >
+      <div>
+        <h4 style="color: rgb(80, 231, 80)">
+          Product Deleted Successfully!
+          <button
+            class="btn btn-danger"
+            style="width: 35px; height: 35px; float: right"
+            onclick="setTimeout(function () {document.getElementById('success').style.display='none'}, 50); return false"
+          >
+            X
+          </button>
+        </h4>
+      </div>
+    </div>
+    <%} else if (del){%>
+    <div
+      id="success"
+      onload="fade_out"
+      class="card card-body"
+      style="display: flex; justify-content: space-between"
+    >
+      <div>
+        <h4 style="color: rgb(241, 116, 116)">
+          No product found!
+          <button
+            class="btn btn-danger"
+            style="width: 35px; height: 35px; float: right"
+            onclick="setTimeout(function () {document.getElementById('success').style.display='none'}, 50); return false"
+          >
+            X
+          </button>
+        </h4>
+      </div>
+    </div>
+    <%}%>
+    <div class="row mt-5">
+      <div class="col-md-6 m-auto">
+        <div class="card card-body">
+          <h1 class="text-center mb-3">Delete a Product</h1>
+          <br />
+          <form action="/products/delete" method="POST">
+            <div class="form-group">
+              <label for="name">Product Name to Delete</label>
+              <input
+                style="background-color: whitesmoke"
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Enter name of the book"
+              />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary btn-block">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
