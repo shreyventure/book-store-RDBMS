@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.header a {
+  width: 100px;
+  height: 40px;
+}
+.grey {
+  background-color: #3f3f3f;
+  padding: 20px;
+}
+.container {
+  padding-top: 40px;
+  text-align: center;
+}
+.links {
+  margin-top: 20px;
+}
+.links a {
+  margin-top: 50px;
+}
+.products {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+}
+.product {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 1053px) {
+  .products {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .products {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 10px;
+  }
+}

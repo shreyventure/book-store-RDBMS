@@ -1,0 +1,24 @@
+.header {
+  padding: 10px;
+  background-color: #3f3f3f;
+  display: flex;
+  justify-content: space-between;
+}
+.header a {
+  width: 100px;
+  height: 40px;
+  align-self: center;
+}
+.form-group ::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+.form-group input {
+  background-color: grey;
+  color: whitesmoke;
+}
+
+.form-group input:focus {
+  background-color: grey;
+  color: whitesmoke;
+}

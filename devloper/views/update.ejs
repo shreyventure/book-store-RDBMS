@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/addProduct.css" />
+    <title>Book Store</title>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Update Product</h2>
+      <a class="btn btn-warning" href="/products/dev/dashboard">Dashboard</a>
+    </div>
+    <div class="col-md-11 m-auto">
+      <div class="card-body">
+        <h2 class="text-center mb-4 mt-4"><%= product.name %></h2>
+        <form
+          class="update"
+          action="/products/search/<%= product.id %>"
+          method="POST"
+        >
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              value="<%= product.name %>"
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter name of the book"
+            />
+          </div>
+          <div class="form-group">
+            <label for="availability">Availability</label>
+            <input
+              value="<%= product.availability %>"
+              type="number"
+              id="availability"
+              name="availability"
+              class="form-control"
+              placeholder="Enter a number"
+            />
+          </div>
+          <div class="form-group">
+            <label for="cost">Cost</label>
+            <input
+              value="<%= product.cost %>"
+              type="number"
+              id="cost"
+              name="cost"
+              class="form-control"
+              placeholder="Enter cost in Rupees"
+            />
+          </div>
+          <div class="form-group">
+            <label for="image">Image URL:</label>
+            <input
+              value="<%= product.image %>"
+              type="text"
+              id="image"
+              name="image"
+              class="form-control"
+              placeholder="Enter URL"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              class="form-control"
+              name="description"
+              rows="5"
+              placeholder="Enter description"
+            >
+  <%= product.description %></textarea
+            >
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Update Product
+          </button>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.15.0/ckeditor.js"
+      integrity="sha512-bNMnTgKRxN1n+5rgfcf160HT2koHRcwLcSq/3JDOY9R65mja48E4Hh+a+IQXVaY2NoJCVC+pr0qE3Vz194QwnA=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      CKEDITOR.replace("description", {
+        plugins: "wysiwygarea, toolbar, basicstyles",
+      });
+      CKEDITOR.on("instanceReady", function (e) {
+        // First time
+        e.editor.document
+          .getBody()
+          .setStyle("background-color", "rgba(45,45,45)");
+        e.editor.document.getBody().setStyle("color", "white");
+        // in case the user switches to source and back
+        e.editor.on("contentDom", function () {
+          e.editor.document
+            .getBody()
+            .setStyle("background-color", "rgba(54,54,54)");
+          e.editor.document.getBody().setStyle("color", "white");
+          e.editor.document.getBody().setStyle("border", "none");
+        });
+      });
+    </script>
+  </body>
+</html>

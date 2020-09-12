@@ -1,0 +1,46 @@
+.header {
+  padding: 10px;
+  background-color: #3f3f3f;
+  display: flex;
+  justify-content: space-between;
+}
+.header a {
+  width: 100px;
+  height: 40px;
+  align-self: center;
+}
+.form-group ::placeholder {
+  color: whitesmoke;
+  opacity: 0.5;
+}
+.form-group input {
+  background-color: transparent;
+  border-bottom-color: whitesmoke;
+  color: white;
+}
+.form-group textarea {
+  background-color: rgba(128, 128, 128, 0.356);
+  color: white;
+}
+
+.form-group input:focus {
+  background-color: transparent;
+  color: whitesmoke;
+  outline: none;
+  outline-color: transparent;
+}
+
+.form-group textarea:focus {
+  background-color: rgb(54, 54, 54);
+  color: whitesmoke;
+  border: transparent;
+  outline: none;
+}
+
+.form-group label {
+  color: rgb(199, 199, 199);
+}
+.cke_contents {
+  border: solid 1px #696969;
+  background-color: #696969;
+}

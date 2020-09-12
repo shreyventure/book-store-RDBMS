@@ -1,23 +1,26 @@
 {
-  "name": "book_store",
+  "name": "dbms_project",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "user": "nodemon app.js",
+    "devloper": "cd devloper && nodemon run start",
+    "devloper-install": "npm install --prefix devloper",
+    "dev": "concurrently \"npm run devloper\" \"npm run user\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shreyventure/book-store-rdbms.git"
   },
   "author": "Shreyas Shrawage",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shreyventure/book-store-rdbms/issues"
+  },
+  "homepage": "https://github.com/shreyventure/book-store-rdbms#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
-    "connect-flash": "^0.1.1",
-    "ejs": "^3.1.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "json-beautify": "^1.1.1",
-    "mysql": "^2.18.1",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "concurrently": "^5.3.0",
+    "express": "^4.17.1"
   }
 }
