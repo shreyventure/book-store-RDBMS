@@ -1,7 +1,5 @@
 const express = require("express");
 const PORT = process.env.PORT || 8000;
-const ejs = require("ejs");
-const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
