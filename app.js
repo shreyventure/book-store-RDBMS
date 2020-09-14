@@ -3,6 +3,7 @@ const PORT = process.env.PORT || 5000;
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
+const expressLayouts = require("express-ejs-layouts");
 
 const app = express();
 
@@ -12,6 +13,7 @@ require("./config/passport")(passport);
 // Setting up view engine
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(expressLayouts);
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));

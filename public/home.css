@@ -1,0 +1,67 @@
+#user {
+  text-transform: uppercase;
+}
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+.main h1 {
+  font-size: 40px;
+  color: darkolivegreen;
+}
+.flex-around {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+}
+hr {
+  margin: 0px;
+}
+.flexA {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.flex-around a {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  font-size: smaller;
+  font-weight: bold;
+}
+.flex-around i {
+  align-self: center;
+  margin-left: 5px;
+  font-size: 17px;
+}
+.body {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.last {
+  margin-bottom: 20px;
+}
+.last a {
+  background-color: darkolivegreen;
+  width: 100%;
+  color: whitesmoke;
+}
+.last a:hover {
+  background-color: rgba(85, 107, 47, 0.795);
+  color: whitesmoke;
+}
+.footer {
+  height: 100px;
+}
+.footer p {
+  padding-top: 30px;
+  text-align: center;
+}

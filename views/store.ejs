@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/store.css">
+<div class="container mt-4">
+    <form action="/store/search" method="post">
+        <div class="mainInput">
+            <input
+            aria-autocomplete="both"
+            aria-haspopup="false"
+            autocapitalize="off"
+            autocomplete="off"
+            autocorrect="off"
+            autofocus=""
+            role="combobox"
+            spellcheck="false"
+            maxlength="2048"
+            type="text"
+            name="query"
+            placeholder="Search for a book"
+            />
+            <button type="submit" class="null">
+                <i class="material-icons md-dark md-inactive" aria-hidden="true">search</i>
+            </button>
+        </form>
+    </div>
+    <div class="products">
+        <%if (!flag){%>
+            <h3>No books found....</h3>
+        <%}%>
+      <% for (var i=0; i<products.length; i++) { %>
+          <div class="product">
+              <img style="height: 300px;" src="<%= products[i].image %>" alt="Book">
+              <h3 class="mt-3"><%= products[i].name %></h3>
+              <h5>Rs.<%= products[i].cost %>/-</h5>
+              <a href="/store/<%=products[i].id%>" class="btn" >More</a>
+          </div>
+      <%}%>
+  </div>
+</div>
+<script>
+    document.getElementById("user").innerHTML = "Hello, <%=name%>";
+</script>
