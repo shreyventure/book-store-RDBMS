@@ -23,14 +23,17 @@
   },
   "homepage": "https://github.com/shreyventure/book-store-rdbms#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "concurrently": "^5.3.0",
     "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

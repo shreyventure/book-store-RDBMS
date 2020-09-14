@@ -17,7 +17,7 @@ DB.connect((err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("MySQL database connected for devloper's login.");
+    console.log("MySQL database connected for user's login.");
   }
 });
 
