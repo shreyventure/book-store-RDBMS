@@ -1,50 +1,6 @@
-#user {
-  text-transform: uppercase;
-}
 img:hover {
   cursor: pointer;
   opacity: 0.8;
-}
-.main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 30px;
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-bottom: 20px;
-}
-.main h1 {
-  font-size: 40px;
-  color: darkolivegreen;
-}
-.flex-around {
-  margin-left: 10px;
-  margin-right: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-self: center;
-}
-hr {
-  margin: 0px;
-}
-.flexA {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.flex-around a {
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: center;
-  font-size: smaller;
-  font-weight: bold;
-}
-.flex-around i {
-  align-self: center;
-  margin-left: 5px;
-  font-size: 17px;
 }
 .body {
   margin-top: 20px;
@@ -66,13 +22,7 @@ hr {
   background-color: rgba(85, 107, 47, 0.795);
   color: whitesmoke;
 }
-.footer {
-  height: 100px;
-}
-.footer p {
-  padding-top: 30px;
-  text-align: center;
-}
+
 .row {
   display: -ms-flexbox; /* IE10 */
   display: flex;
@@ -98,9 +48,15 @@ hr {
   cursor: pointer;
   opacity: 0.8;
 }
+.top-left {
+  position: absolute;
+  top: 300px;
+  margin-left: 90px;
+  text-align: center;
+}
 
 /* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 995px) {
   .column {
     -ms-flex: 50%;
     flex: 50%;

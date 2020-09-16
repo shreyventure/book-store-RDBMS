@@ -1,0 +1,108 @@
+.account-circle {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 15px;
+  right: 15px;
+  background-color: darkolivegreen;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  display: none;
+}
+.account-circle:hover {
+  background-color: rgb(110, 134, 67);
+  color: #fff;
+}
+.my-float {
+  margin-top: 16px;
+}
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 995px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 50%;
+  }
+  .main {
+    flex-direction: column-reverse;
+  }
+  .flex-around {
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+  .account {
+    display: none;
+  }
+  .account-circle {
+    display: block;
+  }
+}
+.footer {
+  height: 100px;
+}
+.footer p {
+  padding-top: 30px;
+  text-align: center;
+}
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+.main h1 {
+  font-size: 40px;
+  color: darkolivegreen;
+}
+.flex-around {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+}
+hr {
+  margin: 0px;
+}
+.flexA {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.flex-around a {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  font-size: smaller;
+  font-weight: bold;
+}
+.flex-around i {
+  align-self: center;
+  font-size: 17px;
+}
+#user {
+  text-transform: uppercase;
+}
+@media screen and (max-width: 995px) {
+  .main {
+    flex-direction: column-reverse;
+  }
+  .flex-around {
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+  .account {
+    display: none;
+  }
+  .account-circle {
+    display: block;
+  }
+}

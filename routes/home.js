@@ -112,4 +112,16 @@ router.post("/store/search", async (req, res) => {
   });
 });
 
+router.get("/offers", (req, res) => {
+  var name;
+  if (req.user) {
+    name = req.user.firstName;
+  } else {
+    name = "guest";
+  }
+  res.render("offer", {
+    name,
+  });
+});
+
 module.exports = router;

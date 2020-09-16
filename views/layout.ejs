@@ -18,32 +18,59 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/home.css" />
+    <link rel="stylesheet" href="/layout.css" />
     <title>Book Store</title>
   </head>
   <body>
-    <div class="container main">
-      <div class="flex-around">
+    <a class="account-circle" style="text-decoration: none" href="#">
+      <% if(name==="guest") {%>
+      <i class="material-icons md-dark my-float">account_circle</i>
+      <% }else{ %>
+      <p class="mt-2"><%=name[0]%></p>
+      <%}%>
+    </a>
+    <div class="ml-4 mr-4 main">
+      <div class="flex-around nav">
         <a href="#">ABOUT</a>
         <a href="#">CONTACT</a>
         <a href="#">BLOG</a>
       </div>
-      <div class="flex-around">
+      <div class="flex-around title">
         <h1 class="lead">BOOK STORE</h1>
       </div>
-      <div class="flex-around mr-4">
+      <div class="flex-around mr-4 account">
         <i class="material-icons md-dark">face</i>
         <a id="user" href="#"></a>
-        <i class="material-icons md-dark ml-4">shopping_cart</i>
-        <a href="#">CART</a>
+        <% if(name==="guest") {%>
+        <i class="material-icons md-dark ml-4">person</i>
+        <a href="/users/login">LOGIN</a>
+        <% }else{ %>
+        <i class="material-icons md-dark ml-4">logout</i>
+        <a href="/users/logout">LOGOUT</a>
+        <% } %>
       </div>
     </div>
     <hr />
-    <div class="container">
+    <div class="ml-4 mr-4">
       <div class="flexA">
-        <a href="/" class="btn btn-secondary" style="width: 100%">Home</a>
-        <a href="/store" class="btn btn-secondary" style="width: 100%">Store</a>
-        <a href="#" class="btn btn-secondary" style="width: 100%">Offers</a>
+        <a
+          href="/"
+          class="btn btn-secondary"
+          style="width: 100%; font-weight: 900"
+          >Home</a
+        >
+        <a
+          href="/store"
+          class="btn btn-secondary"
+          style="width: 100%; font-weight: 900"
+          >Store</a
+        >
+        <a
+          href="/offers"
+          class="btn btn-secondary"
+          style="width: 100%; font-weight: 900"
+          >Offers</a
+        >
       </div>
     </div>
     <hr />
@@ -66,5 +93,8 @@
       integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
       crossorigin="anonymous"
     ></script>
+    <script>
+      document.getElementById("user").innerHTML = "Hello, <%=name%>";
+    </script>
   </body>
 </html>
