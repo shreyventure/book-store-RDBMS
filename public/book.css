@@ -1,0 +1,32 @@
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+#one {
+  display: block;
+  margin-right: 10px;
+}
+#two {
+  display: block;
+  margin-left: 10px;
+  padding-left: 10px;
+  text-align: center;
+  font-size: 20px;
+}
+@media (max-width: 800px) {
+  .flex {
+    display: grid;
+    margin: auto;
+    text-align: center;
+  }
+  #one {
+    display: block;
+    margin: auto;
+  }
+  #two {
+    display: block;
+    margin: auto;
+    padding-top: 10px;
+    font-size: 15px;
+  }
+}

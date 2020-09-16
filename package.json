@@ -34,7 +34,8 @@
     "express-session": "^1.17.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "stripe": "^8.96.0"
   },
   "proxy": "http://localhost:8000"
 }

@@ -53,7 +53,7 @@ module.exports = function (passport) {
   });
 
   passport.deserializeUser(function (id, done) {
-    const Q = `SELECT * FROM dev WHERE id="${id}"`;
+    const Q = `SELECT * FROM users WHERE id="${id}"`;
     DB.query(Q, (err, result) => {
       done(err, result[0]);
     });

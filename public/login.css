@@ -1,0 +1,11 @@
+.login-btn {
+  background-color: darkolivegreen;
+  color: whitesmoke;
+}
+.login-btn:hover {
+  background-color: rgba(85, 107, 47, 0.795);
+  color: whitesmoke;
+}
+hr {
+  margin: 0%;
+}

@@ -1,6 +1,10 @@
 #user {
   text-transform: uppercase;
 }
+img:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
 .main {
   display: flex;
   flex-wrap: wrap;
@@ -47,9 +51,13 @@ hr {
   margin-bottom: 20px;
 }
 .last {
+  margin-top: 20px;
   margin-bottom: 20px;
+  width: 100%;
 }
 .last a {
+  padding-right: 0%;
+  padding-left: 0%;
   background-color: darkolivegreen;
   width: 100%;
   color: whitesmoke;
@@ -64,4 +72,47 @@ hr {
 .footer p {
   padding-top: 30px;
   text-align: center;
+}
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  padding: 0 11px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+  max-width: 50%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+.column img:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
 }
