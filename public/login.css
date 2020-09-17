@@ -9,3 +9,45 @@
 hr {
   margin: 0%;
 }
+.olive {
+  color: rgb(142, 170, 94);
+}
+.op-4 {
+  opacity: 0.8;
+}
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+.child {
+  width: 50%;
+}
+.font {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.w-60 {
+  width: 60%;
+}
+.brder {
+  border-right: 1px solid rgb(229, 229, 229);
+}
+
+@media screen and (max-width: 995px) {
+  .flex {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: auto;
+    width: 100%;
+  }
+  .child {
+    text-align: center;
+    width: 100%;
+  }
+  .w-60 {
+    width: 100%;
+  }
+  .brder {
+    border-right: 0px;
+  }
+}

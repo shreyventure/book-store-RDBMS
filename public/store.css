@@ -1,5 +1,5 @@
 .mainInput {
-  background: #fff;
+  background: transparent;
   display: flex;
   border: 1px solid #dfe1e5;
   box-shadow: none;
@@ -20,13 +20,13 @@
   cursor: pointer;
 }
 .mainInput:hover {
-  box-shadow: 0.4px 0.4px 4px #9aa0a67e;
+  box-shadow: 0.4px 0.4px 4px #e9ebeea9;
 }
 .mainInput input {
   background-color: transparent;
   border: none;
   padding: 20px;
-  color: rgba(0, 0, 0, 0.87);
+  color: whitesmoke;
   word-wrap: break-word;
   outline: none;
   display: flex;
