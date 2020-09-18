@@ -4,10 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
-    />
+    <link id="link" rel="stylesheet" href="" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
@@ -21,7 +18,21 @@
     <link rel="stylesheet" href="/layout.css" />
     <title>Book Store</title>
   </head>
-  <body>
+  <body onload="load">
+    <button
+      id="theme"
+      class="btn btn-success"
+      style="
+        position: fixed;
+        left: 15px;
+        bottom: 15px;
+        border-radius: 50px;
+        height: 60px;
+        width: 60px;
+      "
+    >
+      <i class="material-icons md-dark">invert_colors</i>
+    </button>
     <a class="account-circle" style="text-decoration: none" href="#">
       <% if(name==="guest") {%>
       <i class="material-icons md-dark my-float">account_circle</i>
@@ -95,6 +106,53 @@
     ></script>
     <script>
       document.getElementById("user").innerHTML = "Hello, <%=name%>";
+      document.body.onload = function () {
+        if (
+          localStorage.getItem("bookStoreTheme") === "false" ||
+          localStorage.getItem("bookStoreTheme") === null
+        ) {
+          localStorage.setItem("bookStoreTheme", false);
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/lux/bootstrap.min.css"
+            );
+        } else {
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/darkly/bootstrap.min.css"
+            );
+        }
+      };
+    </script>
+    <script>
+      var dark;
+      if (localStorage.getItem("bookStoreTheme") === null) {
+        localStorage.setItem("bookStoreTheme", false);
+      }
+      document.getElementById("theme").onclick = function () {
+        dark = localStorage.getItem("bookStoreTheme");
+        if (dark === "true") {
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/lux/bootstrap.min.css"
+            );
+          localStorage.setItem("bookStoreTheme", false);
+        } else {
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/darkly/bootstrap.min.css"
+            );
+          localStorage.setItem("bookStoreTheme", true);
+        }
+      };
     </script>
   </body>
 </html>

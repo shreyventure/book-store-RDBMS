@@ -7,6 +7,7 @@
   <div class="flex">
     <div class="mt-4 p-4 text-right child brder">
       <h6 class="mb-4 lead font">NEW CUSTOMERS</h6>
+      <br />
       <p class="lead">
         If you don't have an account, please proceed by clicking the following
         button to continue first-time registration.
@@ -15,7 +16,8 @@
     </div>
     <div class="mt-4 p-4 text-left child">
       <%- include('./partials/messages'); %>
-      <h6 class="mb-4 lead font">LOGIN</h6>
+      <h6 class="mb-4 lead font">MEMBERS</h6>
+      <br />
       <p class="lead">Please log in to your account.</p>
       <form action="/users/login" method="POST">
         <div class="form-group w-60">
@@ -24,7 +26,7 @@
             style="
               background: transparent;
               border: 1px solid grey;
-              color: rgb(180, 180, 180);
+              color: rgb(201, 201, 201);
             "
             type="text"
             id="email"
@@ -37,6 +39,11 @@
         <div class="form-group w-60">
           <label for="password">Password</label>
           <input
+            style="
+              background: transparent;
+              border: 1px solid grey;
+              color: rgb(201, 201, 201);
+            "
             type="password"
             id="password"
             name="password"

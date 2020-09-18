@@ -1,5 +1,6 @@
 .login-btn {
   background-color: darkolivegreen;
+  width: 60%;
   color: whitesmoke;
 }
 .login-btn:hover {

@@ -1,32 +1,40 @@
-<link rel="stylesheet" href="/login.css" />
-<div class="mt-5">
-  <div class="col-md-9 m-auto">
-    <div class="card card-body">
+<link rel="stylesheet" href="/register.css" />
+<div class="container">
+  <div class="border-bottom mb-4">
+    <h2 class="mt-4 olive">Register</h2>
+  </div>
+  <br />
+  <div class="reg mt-4">
+    <div class="border-bottom mb-4">
+      <h4>New Customers</h4>
+    </div>
+    <div>
       <%- include('./partials/messages.ejs'); %>
-      <h1 class="text-center mb-3 mt-3">Register</h1>
       <form action="/users/register" method="POST">
-        <div class="form-group">
-          <label for="firstName">First name</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            class="form-control"
-            placeholder="Enter First name"
-            value="<%= typeof firstName!= 'undefined' ? firstName: '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last name</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            class="form-control"
-            placeholder="Enter Last name"
-            value="<%= typeof lastName!= 'undefined' ? lastName: '' %>"
-            required
-          />
+        <div class="flex">
+          <div class="form-group w-100">
+            <label for="firstName">First name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              class="form-control"
+              placeholder="Enter First name"
+              value="<%= typeof firstName!= 'undefined' ? firstName: '' %>"
+            />
+          </div>
+          <div class="form-group w-100">
+            <label for="lastName">Last name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              class="form-control"
+              placeholder="Enter Last name"
+              value="<%= typeof lastName!= 'undefined' ? lastName: '' %>"
+              required
+            />
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -66,29 +74,35 @@
             required
           />
         </div>
-        <div class="form-group">
-          <label for="city">City</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            class="form-control"
-            placeholder="Enter City"
-            value="<%= typeof city!= 'undefined' ? city: '' %>"
-            required
-          />
+        <br />
+        <div class="border-bottom mb-4 mt-4">
+          <h4>Customer Information</h4>
         </div>
-        <div class="form-group">
-          <label for="state">State</label>
-          <input
-            type="text"
-            id="state"
-            name="state"
-            class="form-control"
-            placeholder="Enter State"
-            value="<%= typeof state!= 'undefined' ? state :'' %>"
-            required
-          />
+        <div class="flex">
+          <div class="form-group w-100">
+            <label for="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              class="form-control"
+              placeholder="Enter City"
+              value="<%= typeof city!= 'undefined' ? city: '' %>"
+              required
+            />
+          </div>
+          <div class="form-group w-100">
+            <label for="state">State</label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              class="form-control"
+              placeholder="Enter State"
+              value="<%= typeof state!= 'undefined' ? state :'' %>"
+              required
+            />
+          </div>
         </div>
         <div class="form-group">
           <label for="country">Country</label>
@@ -381,7 +395,6 @@
           Register
         </button>
       </form>
-      <hr />
       <p class="lead mt-3">Have an account? <a href="/users/login">Login</a></p>
     </div>
   </div>

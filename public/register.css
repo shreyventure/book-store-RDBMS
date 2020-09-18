@@ -1,0 +1,41 @@
+.olive {
+  color: rgb(142, 170, 94);
+}
+.reg {
+  width: 50%;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.w-100 {
+  width: 100%;
+}
+
+.login-btn {
+  background-color: darkolivegreen;
+  width: 70%;
+  color: whitesmoke;
+}
+.login-btn:hover {
+  background-color: rgba(85, 107, 47, 0.795);
+  color: whitesmoke;
+}
+
+@media screen and (max-width: 995px) {
+  .reg {
+    width: 80%;
+  }
+  .flex {
+    display: block;
+  }
+  .login-btn {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .reg {
+    width: 100%;
+  }
+}
