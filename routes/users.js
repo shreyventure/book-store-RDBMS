@@ -7,7 +7,7 @@ const {
   MYSQL_PASSWORD,
   MYSQL_DATABASE,
 } = require("../devloper/config/keys");
-const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
+const { forwardAuthenticated } = require("../config/auth");
 
 const mysql = require("mysql");
 const DB = mysql.createConnection({

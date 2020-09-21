@@ -1,47 +1,81 @@
 <!--product-->
 <link rel="stylesheet" href="/book.css" />
+<br />
 <div class="container flex mt-4">
   <div id="one">
     <img style="height: 500px" src="<%= product.image %>" alt="Book" />
     <h5 class="mt-3"><%= product.name %></h5>
     <h5>Rs.<%= product.cost %>/-</h5>
-    <form action="/charge/?amt=<%= product.cost*100 %>" method="POST">
-      <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        ,
-        data-key="<%= key %>"
-        ,
-        data-locale="auto"
-        ,
-        data-description="Novel: The Best Of Me"
-        ,
-        data-amount="<%= product.cost*100 %>"
-        ,
-        data-currency="INR"
-        ,
-        data-image="<%= product.image %>"
-      ></script>
-
-      <script>
-        document.getElementsByClassName("stripe-button-el")[0].style.display =
-          "none";
-      </script>
-      <br />
-      <% if(product.availability) {%>
-      <button type="submit" class="btn btn-success">Purchase</button>
-      <% } %>
-    </form>
+    <br />
+    <label for="quantity">Quantity: </label>
+    <input
+      class="form-control"
+      type="number"
+      name="quantity"
+      value="1"
+      onchange="Quan(this.value)"
+      min="1"
+    />
+    <br />
+    <% if(product.availability) {%>
+    <button id="checkout-button" type="submit" class="btn btn-success">
+      Purchase
+    </button>
+    <% } %>
   </div>
   <div id="two">
-    <h3 class="text-center mb-3 mt-4">About the book</h3>
+    <h3 class="mb-3 mt-2 pb-2 border-bottom" style="color: rgb(142, 170, 94)">
+      About the book
+    </h3>
     <%= desc %>
     <h4 class="mt-4" style="font-weight: bold">
       Available: <%= product.availability %>
     </h4>
+    <h4 id="rate" style="font-weight: bold"></h4>
   </div>
 </div>
 <script>
   document.getElementById("user").innerHTML = "Hello, <%=name%>";
+  document.getElementById("rate").innerHTML =
+    "Ratings: " + Math.floor(Math.random() * Math.floor(6)) + "/5";
+</script>
+<script>
+  var quan = 1;
+  function Quan(val) {
+    quan = val;
+  }
+</script>
+<script type="text/javascript">
+  // Create an instance of the Stripe object with your publishable API key
+  var stripe = Stripe("<%= key %>");
+  var checkoutButton = document.getElementById("checkout-button");
+
+  checkoutButton.addEventListener("click", function () {
+    // Create a new Checkout Session using the server-side endpoint you
+    // created in step 3.
+    fetch(
+      `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>`,
+      {
+        method: "POST",
+      }
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using `error.message`.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  });
 </script>
 <!--product-->

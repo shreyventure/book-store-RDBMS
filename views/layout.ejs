@@ -4,12 +4,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link id="link" rel="stylesheet" href="" />
+    <script>
+      function getCSS() {
+        if (localStorage.getItem("bookStoreTheme") === "true") {
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/darkly/bootstrap.min.css"
+            );
+        } else {
+          document
+            .getElementById("link")
+            .setAttribute(
+              "href",
+              "https://bootswatch.com/4/lux/bootstrap.min.css"
+            );
+        }
+      }
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
       integrity="sha512-rRQtF4V2wtAvXsou4iUAs2kXHi3Lj9NE7xJR77DE7GHsxgY9RTWy93dzMXgDIG8ToiRTD45VsDNdTiUagOFeZA=="
       crossorigin="anonymous"
+    />
+    <link
+      id="link"
+      rel="stylesheet"
+      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
     />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -18,7 +42,7 @@
     <link rel="stylesheet" href="/layout.css" />
     <title>Book Store</title>
   </head>
-  <body onload="load">
+  <body onload="document.body.style.opacity='1'">
     <button
       id="theme"
       class="btn btn-success"
@@ -40,7 +64,7 @@
       <p class="mt-2"><%=name[0]%></p>
       <%}%>
     </a>
-    <div class="ml-4 mr-4 main">
+    <div class="container main">
       <div class="flex-around nav">
         <a href="#">ABOUT</a>
         <a href="#">CONTACT</a>
@@ -62,7 +86,7 @@
       </div>
     </div>
     <hr />
-    <div class="ml-4 mr-4">
+    <div class="container">
       <div class="flexA">
         <a
           href="/"
@@ -106,27 +130,6 @@
     ></script>
     <script>
       document.getElementById("user").innerHTML = "Hello, <%=name%>";
-      document.body.onload = function () {
-        if (
-          localStorage.getItem("bookStoreTheme") === "false" ||
-          localStorage.getItem("bookStoreTheme") === null
-        ) {
-          localStorage.setItem("bookStoreTheme", false);
-          document
-            .getElementById("link")
-            .setAttribute(
-              "href",
-              "https://bootswatch.com/4/lux/bootstrap.min.css"
-            );
-        } else {
-          document
-            .getElementById("link")
-            .setAttribute(
-              "href",
-              "https://bootswatch.com/4/darkly/bootstrap.min.css"
-            );
-        }
-      };
     </script>
     <script>
       var dark;

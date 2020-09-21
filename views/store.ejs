@@ -27,14 +27,16 @@
         <%}%>
       <% for (var i=0; i<products.length; i++) { %>
           <div class="product">
-              <img style="height: 300px;" src="<%= products[i].image %>" alt="Book">
+              <a href="/store/<%=products[i].id%>">
+                <img class="prodIMG" style="height: 300px;" src="<%= products[i].image %>" alt="Book">
+            </a>
               <% if (products[i].availability > 0) { %>
               <h4 class="lead mt-3"><%= products[i].name %></h4>
               <%} else {%>
                 <h4 class="lead mt-3">(NA) <del><%= products[i].name %></del></h4>
               <%}%>
               <h5>Rs.<%= products[i].cost %>/-</h5>
-              <a href="/store/<%=products[i].id%>" class="btn" >More</a>
+              <!-- <a href="/store/<%=products[i].id%>" class="btn" >More</a> -->
           </div>
       <%}%>
   </div>

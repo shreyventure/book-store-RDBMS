@@ -62,25 +62,30 @@ router.get("/store/:id", ensureAuthenticated, async (req, res) => {
     }
   }
 });
-router.post("/charge/", ensureAuthenticated, function (req, res) {
+router.post("/charge/", ensureAuthenticated, async (req, res) => {
   let amount = req.query.amt;
-  stripe.customers
-    .create({
-      email: req.body.stripeEmail,
-      source: req.body.stripeToken,
-    })
-    .then((customer) =>
-      stripe.charges.create({
-        amount,
-        description: "Sample Charge",
-        currency: "INR",
-        customer: customer.id,
-      })
-    )
-    .then((charge) => {
-      res.send("success");
-    })
-    .catch((err) => console.log(err));
+  let quantity = req.query.quan;
+  let title = req.query.title;
+  let bookID = req.query.bookID;
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: title,
+          },
+          unit_amount: amount * 100,
+        },
+        quantity: quantity,
+      },
+    ],
+    mode: "payment",
+    success_url: `http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quantity}&bookID=${bookID}`,
+    cancel_url: "http://localhost:5000/store",
+  });
+  res.json({ id: session.id });
 });
 router.post("/store/search", async (req, res) => {
   const { query } = req.body;
@@ -122,6 +127,17 @@ router.get("/offers", (req, res) => {
   res.render("offer", {
     name,
   });
+});
+
+// todo:  Create a success route      *******************
+router.get("/success", ensureAuthenticated, async (req, res) => {
+  const sessID = req.query.session_id;
+  const quantity = req.query.quantity;
+  const bookID = req.query.bookID;
+  const session = await stripe.checkout.sessions.retrieve(sessID);
+  const customer = await stripe.customers.retrieve(session.customer);
+  console.log(bookID);
+  res.send(customer);
 });
 
 module.exports = router;
