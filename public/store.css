@@ -52,19 +52,19 @@
   grid-template-columns: auto auto auto auto;
   padding: 10px;
 }
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 .product {
+  animation: 1.5s ease-in-out 0s 1 slideInFromBottom;
   font-size: 30px;
   text-align: center;
   margin-bottom: 40px;
-}
-.product a {
-  width: 70%;
-  background-color: rgb(115, 145, 63);
-  color: whitesmoke;
-}
-.product a:hover {
-  background-color: rgba(85, 107, 47, 0.774);
-  color: whitesmoke;
 }
 @media screen and (max-width: 1053px) {
   .products {

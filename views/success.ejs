@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="/success.css" />
+<div class="container">
+  <div class="border-bottom">
+    <h2 class="mt-4 olive">Payment Successful!</h2>
+  </div>
+  <div class="mt-5">
+    <table class="lead table table-borderless table-responsive-md">
+      <tr>
+        <td class="p-3">
+          <img style="height: 200px" src="<%=bookImg%>" alt="book" />
+        </td>
+        <td class="text-center">
+          <div style="margin: auto">
+            <h3><%= bookName %></h3>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="p-3">Session ID:</td>
+        <td><%= session.id %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Customer ID:</td>
+        <td><%= session.customer %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Customer email:</td>
+        <td><%= cust.email %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Product ID:</td>
+        <td><%= bookID %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Cost/book:</td>
+        <td>RS.<%= session.amount_total/100/quan %>/-</td>
+      </tr>
+      <tr>
+        <td class="p-3">Quantity:</td>
+        <td><%= quan %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Payment method:</td>
+        <td><%= session.payment_method_types[0] %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Payment status:</td>
+        <td><%= session.payment_status %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Currency:</td>
+        <td><%= session.currency %></td>
+      </tr>
+      <tr>
+        <td class="p-3">Shipping Address:</td>
+        <td><%= add %></td>
+      </tr>
+      <tr class="border-top">
+        <td class="p-3">Total:</td>
+        <td>RS.<%= session.amount_total / 100%>/-</td>
+      </tr>
+    </table>
+  </div>
+  <a href="/store" class="btn btn-success btn-block mt-4">Continue Shopping</a>
+</div>

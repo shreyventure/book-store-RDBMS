@@ -63,10 +63,7 @@ router.get("/store/:id", ensureAuthenticated, async (req, res) => {
   }
 });
 router.post("/charge/", ensureAuthenticated, async (req, res) => {
-  let amount = req.query.amt;
-  let quantity = req.query.quan;
-  let title = req.query.title;
-  let bookID = req.query.bookID;
+  const { amt, quan, title, bookID, bookName, bookImg } = req.query;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -76,18 +73,18 @@ router.post("/charge/", ensureAuthenticated, async (req, res) => {
           product_data: {
             name: title,
           },
-          unit_amount: amount * 100,
+          unit_amount: amt * 100,
         },
-        quantity: quantity,
+        quantity: quan,
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quantity}&bookID=${bookID}`,
+    success_url: `http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quan}&bookID=${bookID}&bookName=${bookName}&bookImg=${bookImg}`,
     cancel_url: "http://localhost:5000/store",
   });
   res.json({ id: session.id });
 });
-router.post("/store/search", async (req, res) => {
+router.post("/store/search", ensureAuthenticated, async (req, res) => {
   const { query } = req.body;
   const config = {
     method: "get",
@@ -132,12 +129,21 @@ router.get("/offers", (req, res) => {
 // todo:  Create a success route      *******************
 router.get("/success", ensureAuthenticated, async (req, res) => {
   const sessID = req.query.session_id;
-  const quantity = req.query.quantity;
-  const bookID = req.query.bookID;
+  const { quantity, bookID, bookName, bookImg } = req.query;
   const session = await stripe.checkout.sessions.retrieve(sessID);
   const customer = await stripe.customers.retrieve(session.customer);
-  console.log(bookID);
-  res.send(customer);
+  console.log(session);
+
+  res.render("success", {
+    name: req.user.firstName,
+    session: session,
+    bookID,
+    bookImg,
+    bookName,
+    quan: quantity,
+    cust: customer,
+    add: req.user.address,
+  });
 });
 
 module.exports = router;

@@ -29,7 +29,7 @@ router.get("/login", forwardAuthenticated, (req, res) => {
     name: "guest",
   });
 });
-router.post("/login", (req, res, next) => {
+router.post("/login", forwardAuthenticated, (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: `/store`,
     failureRedirect: "/users/login",
@@ -49,7 +49,7 @@ router.get("/register", forwardAuthenticated, (req, res) => {
     name: "guest",
   });
 });
-router.post("/register", (req, res) => {
+router.post("/register", forwardAuthenticated, (req, res) => {
   var {
     firstName,
     lastName,

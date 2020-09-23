@@ -54,7 +54,7 @@
     // Create a new Checkout Session using the server-side endpoint you
     // created in step 3.
     fetch(
-      `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>`,
+      `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>&bookName=<%= product.name %>&bookImg=<%= product.image %>`,
       {
         method: "POST",
       }
