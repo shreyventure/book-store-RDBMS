@@ -12,7 +12,7 @@
       <%- include('./partials/messages.ejs'); %>
       <form action="/users/register" method="POST">
         <div class="flex">
-          <div class="form-group w-100">
+          <div class="form-group w-100 r">
             <label for="firstName">First name</label>
             <input
               type="text"
@@ -23,7 +23,7 @@
               value="<%= typeof firstName!= 'undefined' ? firstName: '' %>"
             />
           </div>
-          <div class="form-group w-100">
+          <div class="form-group w-100 l">
             <label for="lastName">Last name</label>
             <input
               type="text"
@@ -79,7 +79,7 @@
           <h4>Customer Information</h4>
         </div>
         <div class="flex">
-          <div class="form-group w-100">
+          <div class="form-group w-100 r">
             <label for="city">City</label>
             <input
               type="text"
@@ -91,7 +91,7 @@
               required
             />
           </div>
-          <div class="form-group w-100">
+          <div class="form-group w-100 l">
             <label for="state">State</label>
             <input
               type="text"

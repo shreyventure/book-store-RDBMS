@@ -80,7 +80,7 @@ router.post("/charge/", ensureAuthenticated, async (req, res) => {
     ],
     mode: "payment",
     success_url: `http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quan}&bookID=${bookID}&bookName=${bookName}&bookImg=${bookImg}`,
-    cancel_url: "http://localhost:5000/store",
+    cancel_url: `http://localhost:5000/store/${bookID}`,
   });
   res.json({ id: session.id });
 });
@@ -114,6 +114,19 @@ router.post("/store/search", ensureAuthenticated, async (req, res) => {
   });
 });
 
+router.get("/profile", ensureAuthenticated, (req, res) => {
+  var name;
+  if (req.user) {
+    name = req.user.firstName;
+  } else {
+    name = "guest";
+  }
+  res.render("profile", {
+    user: req.user,
+    name: name,
+  });
+});
+
 router.get("/offers", (req, res) => {
   var name;
   if (req.user) {
@@ -132,7 +145,6 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
   const { quantity, bookID, bookName, bookImg } = req.query;
   const session = await stripe.checkout.sessions.retrieve(sessID);
   const customer = await stripe.customers.retrieve(session.customer);
-  console.log(session);
 
   res.render("success", {
     name: req.user.firstName,

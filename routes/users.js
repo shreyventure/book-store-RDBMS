@@ -158,4 +158,53 @@ router.post("/register", forwardAuthenticated, (req, res) => {
   }
 });
 
+router.post("/profile", (req, res) => {
+  var {
+    firstName,
+    lastName,
+    city,
+    state,
+    country,
+    pincode,
+    address,
+  } = req.body;
+  let errors = [];
+
+  if (
+    !firstName ||
+    !lastName ||
+    !city ||
+    !state ||
+    !country ||
+    !pincode ||
+    !address
+  ) {
+    errors.push({ msg: "Please enter all fields" });
+  }
+
+  if (errors.length > 0) {
+    res.render("profile", {
+      errors,
+      user: req.user,
+      name: req.user.firstName,
+    });
+  } else {
+    const Options = {
+      firstName,
+      lastName,
+      city,
+      state,
+      country,
+      pincode,
+      address,
+    };
+    const Q = `UPDATE users SET ? WHERE email = ?`;
+    DB.query(Q, [Options, req.user.email], (err, result) => {
+      if (err) throw err;
+      req.flash("success_msg", "Profile updated successfully!");
+      res.redirect("/profile");
+    });
+  }
+});
+
 module.exports = router;

@@ -2,6 +2,15 @@ body {
   opacity: 0;
   transition: opacity 0.5s;
 }
+#theme {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+  border-radius: 50px;
+  height: 60px;
+  width: 60px;
+  z-index: 1000;
+}
 .account-circle {
   position: fixed;
   width: 60px;
@@ -14,6 +23,7 @@ body {
   text-align: center;
   font-size: 30px;
   display: none;
+  z-index: 1000;
 }
 .account-circle:hover {
   background-color: rgb(110, 134, 67);

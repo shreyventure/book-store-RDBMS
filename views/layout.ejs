@@ -4,6 +4,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
     <script>
       function getCSS() {
         if (localStorage.getItem("bookStoreTheme") === "true") {
@@ -13,6 +28,11 @@
               "href",
               "https://bootswatch.com/4/darkly/bootstrap.min.css"
             );
+          $(document).ready(function () {
+            $(document.getElementsByClassName("info")).removeClass(
+              "bg-lightgrey"
+            );
+          });
         } else {
           document
             .getElementById("link")
@@ -20,6 +40,9 @@
               "href",
               "https://bootswatch.com/4/lux/bootstrap.min.css"
             );
+          $(document).ready(function () {
+            $(document.getElementsByClassName("info")).addClass("bg-lightgrey");
+          });
         }
       }
     </script>
@@ -44,21 +67,10 @@
     <title>Book Store</title>
   </head>
   <body onload="document.body.style.opacity='1'">
-    <button
-      id="theme"
-      class="btn btn-success"
-      style="
-        position: fixed;
-        left: 15px;
-        bottom: 15px;
-        border-radius: 50px;
-        height: 60px;
-        width: 60px;
-      "
-    >
+    <button id="theme" class="btn btn-success">
       <i class="material-icons md-dark">invert_colors</i>
     </button>
-    <a class="account-circle" style="text-decoration: none" href="#">
+    <a class="account-circle" style="text-decoration: none" href="/profile">
       <% if(name==="guest") {%>
       <i class="material-icons md-dark my-float">account_circle</i>
       <% }else{ %>
@@ -76,7 +88,7 @@
       </div>
       <div class="flex-around mr-4 account">
         <i class="material-icons md-dark">face</i>
-        <a id="user" href="#"></a>
+        <a id="user" href="/profile"></a>
         <% if(name==="guest") {%>
         <i class="material-icons md-dark ml-4">person</i>
         <a href="/users/login">LOGIN</a>
@@ -114,21 +126,7 @@
     <div class="footer">
       <p class="lead">&copy; All rights reserved.</p>
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-      crossorigin="anonymous"
-    ></script>
+    <!--  -->
     <script>
       document.getElementById("user").innerHTML = "Hello, <%=name%>";
     </script>
@@ -146,6 +144,7 @@
               "href",
               "https://bootswatch.com/4/lux/bootstrap.min.css"
             );
+          $(document.getElementsByClassName("info")).addClass("bg-lightgrey");
           localStorage.setItem("bookStoreTheme", false);
         } else {
           document
@@ -154,6 +153,9 @@
               "href",
               "https://bootswatch.com/4/darkly/bootstrap.min.css"
             );
+          $(document.getElementsByClassName("info")).removeClass(
+            "bg-lightgrey"
+          );
           localStorage.setItem("bookStoreTheme", true);
         }
       };

@@ -1,0 +1,67 @@
+.olive {
+  color: rgb(142, 170, 94);
+}
+
+.flex-jcb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lOUT {
+  display: none;
+}
+
+.child-r {
+  margin-right: 10px;
+}
+.child-l {
+  margin-left: 10px;
+}
+
+.bg-lightgrey {
+  background-color: rgb(247, 247, 247);
+  border: none;
+}
+
+.edit {
+  cursor: pointer;
+}
+.edit:hover {
+  opacity: 0.5;
+}
+
+.update-btn {
+  background-color: rgb(142, 170, 94);
+}
+.update-btn:hover {
+  background-color: rgb(191, 218, 146);
+}
+
+.info p span i {
+  display: inline-flex;
+  padding: 5px;
+  font-size: 19px;
+}
+
+@media screen and (max-width: 995px) {
+  .flex-jcb {
+    display: block;
+  }
+  .child-r {
+    margin-right: 0px;
+  }
+  .child-l {
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+  .lOUT {
+    display: block;
+    font-size: 17px;
+    line-height: 20px;
+  }
+  .lOUT a i {
+    font-size: 17px;
+    display: inline-flex;
+    vertical-align: top;
+  }
+}

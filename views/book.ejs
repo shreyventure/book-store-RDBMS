@@ -1,6 +1,7 @@
 <!--product-->
 <link rel="stylesheet" href="/book.css" />
 <br />
+<%- include('./partials/messages'); %>
 <div class="container flex mt-4">
   <div id="one">
     <img style="height: 500px" src="<%= product.image %>" alt="Book" />
@@ -16,6 +17,7 @@
       onchange="Quan(this.value)"
       min="1"
     />
+    <p id="verify" style="display: none" class="text-danger">Invalid value.</p>
     <br />
     <% if(product.availability) {%>
     <button id="checkout-button" type="submit" class="btn btn-success">
@@ -42,6 +44,11 @@
 <script>
   var quan = 1;
   function Quan(val) {
+    if (val === "0" || val === "") {
+      document.getElementById("verify").style.display = "block";
+    } else {
+      document.getElementById("verify").style.display = "none";
+    }
     quan = val;
   }
 </script>
@@ -53,29 +60,34 @@
   checkoutButton.addEventListener("click", function () {
     // Create a new Checkout Session using the server-side endpoint you
     // created in step 3.
-    fetch(
-      `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>&bookName=<%= product.name %>&bookImg=<%= product.image %>`,
-      {
-        method: "POST",
-      }
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (session) {
-        return stripe.redirectToCheckout({ sessionId: session.id });
-      })
-      .then(function (result) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, you should display the localized error message to your
-        // customer using `error.message`.
-        if (result.error) {
-          alert(result.error.message);
+    if (quan === 0 || quan === "" || quan === "0") {
+      document.getElementById("verify").style.display = "block";
+    } else {
+      document.getElementById("verify").style.display = "none";
+      fetch(
+        `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>&bookName=<%= product.name %>&bookImg=<%= product.image %>`,
+        {
+          method: "POST",
         }
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-      });
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using `error.message`.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    }
   });
 </script>
 <!--product-->

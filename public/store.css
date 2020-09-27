@@ -20,13 +20,13 @@
   cursor: pointer;
 }
 .mainInput:hover {
-  box-shadow: 0.4px 0.4px 4px #e9ebeea9;
+  box-shadow: 0.4px 0.4px 5px;
 }
 .mainInput input {
   background-color: transparent;
+  color: inherit;
   border: none;
   padding: 20px;
-  color: whitesmoke;
   word-wrap: break-word;
   outline: none;
   display: flex;
