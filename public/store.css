@@ -1,7 +1,7 @@
 .mainInput {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.089);
   display: flex;
-  border: 1px solid #dfe1e5;
+  border: 0.1px solid rgba(66, 66, 66, 0.247);
   box-shadow: none;
   border-radius: 24px;
   z-index: 10;
@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 .mainInput:hover {
-  box-shadow: 0.4px 0.4px 5px;
+  box-shadow: 0.4px 0.4px 8px 0.4px;
 }
 .mainInput input {
   background-color: transparent;

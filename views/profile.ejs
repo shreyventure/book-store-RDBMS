@@ -3,6 +3,7 @@
   <div class="border-bottom">
     <h2 class="mt-4 olive">My Profile</h2>
   </div>
+  <br />
   <%- include('./partials/messages.ejs'); %>
   <p class="mt-2">
     Welcome back <%= user.firstName %>.
@@ -390,9 +391,9 @@
         Update
       </button>
     </form>
-        <button class="btn btn-warning btn-block mt-2" onclick="cancel()">
-          Cancel
-        </button>
+    <button class="btn btn-warning btn-block mt-2" onclick="cancel()">
+      Cancel
+    </button>
   </div>
 </div>
 <script>
