@@ -70,7 +70,11 @@
     <button id="theme" class="btn btn-success">
       <i class="material-icons md-dark">invert_colors</i>
     </button>
-    <a class="account-circle" style="text-decoration: none" href="/profile">
+    <a
+      class="account-circle"
+      style="text-decoration: none"
+      href="/users/profile"
+    >
       <% if(name==="guest") {%>
       <i class="material-icons md-dark my-float">account_circle</i>
       <% }else{ %>
@@ -88,7 +92,7 @@
       </div>
       <div class="flex-around mr-4 account">
         <i class="material-icons md-dark">face</i>
-        <a id="user" href="/profile"></a>
+        <a id="user" href="/users/profile"></a>
         <% if(name==="guest") {%>
         <i class="material-icons md-dark ml-4">person</i>
         <a href="/users/login">LOGIN</a>

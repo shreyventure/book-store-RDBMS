@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const beautify = require("json-beautify");
 const passport = require("passport");
-const cors = require("cors");
 
 const {
   ensureAuthenticatedDEV,
@@ -45,11 +43,6 @@ router.post("/login", (req, res, next) => {
     failureRedirect: "/products/login",
     failureFlash: true,
   })(req, res, next);
-});
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.flash("success_msg", "Logged out successfully!");
-  res.redirect("/products/login");
 });
 
 // route GET (/products/dev/dashboard)
@@ -189,6 +182,12 @@ router.post("/delete", ensureAuthenticatedDEV, (req, res) => {
       no: result.affectedRows,
     });
   });
+});
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "Logged out successfully!");
+  res.redirect("/products/login");
 });
 
 module.exports = router;

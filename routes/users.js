@@ -6,11 +6,14 @@ const {
   MYSQL_USERNAME,
   MYSQL_PASSWORD,
   MYSQL_DATABASE,
-} = require("../devloper/config/keys");
-const { forwardAuthenticated } = require("../config/auth");
+  secret,
+} = require("../config/keys");
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
+const stripe = require("stripe")(secret);
 
 const mysql = require("mysql");
 const DB = mysql.createConnection({
+  multipleStatements: true,
   host: "localhost",
   user: MYSQL_USERNAME,
   password: MYSQL_PASSWORD,
@@ -158,6 +161,40 @@ router.post("/register", forwardAuthenticated, (req, res) => {
   }
 });
 
+router.get("/profile", ensureAuthenticated, (req, res) => {
+  var name;
+  if (req.user) {
+    name = req.user.firstName;
+  } else {
+    name = "guest";
+  }
+  const Q = `SELECT bookid FROM transactions WHERE userid = ${req.user.id}`;
+  DB.query(Q, (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      var QQ = "";
+      for (let i = 0; i < result.length; i++) {
+        QQ = QQ + `SELECT * FROM products WHERE id = ${result[i].bookid}; `;
+      }
+      DB.query(QQ, (Err, Result) => {
+        if (Err) throw Err;
+        if (Result) {
+          res.render("profile", {
+            user: req.user,
+            name: name,
+            purchases: Result,
+          });
+        }
+      });
+    } else {
+      res.render("profile", {
+        user: req.user,
+        name: name,
+        purchases: [],
+      });
+    }
+  });
+});
 router.post("/profile", (req, res) => {
   var {
     firstName,
@@ -202,9 +239,48 @@ router.post("/profile", (req, res) => {
     DB.query(Q, [Options, req.user.email], (err, result) => {
       if (err) throw err;
       req.flash("success_msg", "Profile updated successfully!");
-      res.redirect("/profile");
+      res.redirect("/users/profile");
     });
   }
+});
+
+// todo:  Create a success route      *******************
+router.get("/success", ensureAuthenticated, async (req, res) => {
+  const sessID = req.query.session_id;
+  const { quantity, bookID, bookName, bookImg } = req.query;
+  const session = await stripe.checkout.sessions.retrieve(sessID);
+  const customer = await stripe.customers.retrieve(session.customer);
+
+  const Q = `UPDATE products SET availability = availability - ${quantity} WHERE id = ?`;
+  DB.query(Q, [bookID], (err, result) => {
+    if (err) throw err;
+    if (result.affectedRows > 0) {
+      const QQ = `INSERT INTO transactions SET ?`;
+      const options = {
+        userid: req.user.id,
+        bookid: bookID,
+        custid: session.customer,
+        sessid: session.id,
+        quantity: quantity,
+        amount: session.amount_total / 100,
+      };
+      DB.query(QQ, [options], (Err, Result) => {
+        if (Err) throw Err;
+        if (Result) {
+          res.render("success", {
+            name: req.user.firstName,
+            session: session,
+            bookID,
+            bookImg,
+            bookName,
+            quan: quantity,
+            cust: customer,
+            add: req.user.address,
+          });
+        }
+      });
+    }
+  });
 });
 
 module.exports = router;

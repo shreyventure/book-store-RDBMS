@@ -1,6 +1,7 @@
 body {
   opacity: 0;
   transition: opacity 0.5s;
+  transition: 0.5s ease all;
 }
 #theme {
   position: fixed;

@@ -395,19 +395,78 @@
       Cancel
     </button>
   </div>
+  <!-- Orders -->
+  <div class="border-bottom mt-4">
+    <h3 class="mt-4 olive">Previous Purchases</h3>
+  </div>
+  <% if (purchases.length > 1){ %>
+    <div class="row">
+      <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+              <div class="MultiCarousel-inner">
+                <% for(var i = purchases.length - 1 ; i >= 0 ; i--){ %>
+                  <div class="item">
+                    <div class="pad15" style="background-color: inherit;">
+                      <a href="/store/<%= purchases[i][0].id %>" class="bg-lightgrey info text-center">
+                        <img style="height: 250px;" src="<%= purchases[i][0].image %>" alt="product">
+                            <p class="lead mt-3 mb-1"><%= purchases[i][0].name %></p>
+                            <p>₹ <%= purchases[i][0].cost %></p>
+                      </a>
+                    </div>
+                  </div>
+                <%}%>
+              </div>
+              <button class="btn btn-primary leftLst"><</button>
+              <button class="btn btn-primary rightLst">></button>
+          </div>
+    </div>
+  <%} else if (purchases.length === 1) { %>
+    <div class="row">
+      <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+              <div class="MultiCarousel-inner">
+                  <div class="item">
+                    <div class="pad15" style="background-color: inherit;">
+                      <a href="/store/<%= purchases[0].id %>" class="bg-lightgrey info">
+                        <img style="height: 250px;" src="<%= purchases[0].image %>" alt="product">
+                            <p class="lead mt-3"><%= purchases[0].name %></p>
+                            <p>₹ <%= purchases[0].cost %></p>
+                      </a>
+                    </div>
+                  </div>
+              </div>
+              <button class="btn btn-primary leftLst"><</button>
+              <button class="btn btn-primary rightLst">></button>
+          </div>
+    </div>
+  <%} else {%>
+    <p class="lead mt-3">No purchases yet.</p>
+  <%}%>
+</div>
 </div>
 <script>
   $(document).ready(function () {
     $("#country").val("<%= user.country %>");
   });
 </script>
+<script src="/profile.js"></script>
 <script>
   function edit() {
     document.getElementById("flex-jcb").style.display = "none";
     document.getElementById("update").style.display = "block";
   }
   function cancel() {
-    document.getElementById("flex-jcb").style.display = "block";
+    const vw = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
+    const vh = Math.max(
+      document.documentElement.clientHeight || 0,
+      window.innerHeight || 0
+    );
+    if (vw > vh) {
+      document.getElementById("flex-jcb").style.display = "flex";
+    } else {
+      document.getElementById("flex-jcb").style.display = "block";
+    }
     document.getElementById("update").style.display = "none";
   }
 </script>

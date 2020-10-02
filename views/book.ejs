@@ -16,6 +16,7 @@
       value="1"
       onchange="Quan(this.value)"
       min="1"
+      max="<%= product.availability %>"
     />
     <p id="verify" style="display: none" class="text-danger">Invalid value.</p>
     <br />
@@ -44,7 +45,11 @@
 <script>
   var quan = 1;
   function Quan(val) {
-    if (val === "0" || val === "") {
+    if (
+      val === "0" ||
+      val === "" ||
+      Number(val) > Number("<%= product.availability %>")
+    ) {
       document.getElementById("verify").style.display = "block";
     } else {
       document.getElementById("verify").style.display = "none";
@@ -60,7 +65,12 @@
   checkoutButton.addEventListener("click", function () {
     // Create a new Checkout Session using the server-side endpoint you
     // created in step 3.
-    if (quan === 0 || quan === "" || quan === "0") {
+    if (
+      quan === 0 ||
+      quan === "" ||
+      quan === "0" ||
+      Number(quan) > Number("<%= product.availability %>")
+    ) {
       document.getElementById("verify").style.display = "block";
     } else {
       document.getElementById("verify").style.display = "none";

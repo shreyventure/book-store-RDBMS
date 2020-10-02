@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const { public, secret } = require("../devloper/config/keys");
+const { public, secret } = require("../config/keys");
 const stripe = require("stripe")(secret);
 const { ensureAuthenticated } = require("../config/auth");
 
@@ -79,7 +79,7 @@ router.post("/charge/", ensureAuthenticated, async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:5000/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quan}&bookID=${bookID}&bookName=${bookName}&bookImg=${bookImg}`,
+    success_url: `http://localhost:5000/users/success?session_id={CHECKOUT_SESSION_ID}&quantity=${quan}&bookID=${bookID}&bookName=${bookName}&bookImg=${bookImg}`,
     cancel_url: `http://localhost:5000/store/${bookID}`,
   });
   res.json({ id: session.id });
@@ -114,19 +114,6 @@ router.post("/store/search", ensureAuthenticated, async (req, res) => {
   });
 });
 
-router.get("/profile", ensureAuthenticated, (req, res) => {
-  var name;
-  if (req.user) {
-    name = req.user.firstName;
-  } else {
-    name = "guest";
-  }
-  res.render("profile", {
-    user: req.user,
-    name: name,
-  });
-});
-
 router.get("/offers", (req, res) => {
   var name;
   if (req.user) {
@@ -136,25 +123,6 @@ router.get("/offers", (req, res) => {
   }
   res.render("offer", {
     name,
-  });
-});
-
-// todo:  Create a success route      *******************
-router.get("/success", ensureAuthenticated, async (req, res) => {
-  const sessID = req.query.session_id;
-  const { quantity, bookID, bookName, bookImg } = req.query;
-  const session = await stripe.checkout.sessions.retrieve(sessID);
-  const customer = await stripe.customers.retrieve(session.customer);
-
-  res.render("success", {
-    name: req.user.firstName,
-    session: session,
-    bookID,
-    bookImg,
-    bookName,
-    quan: quantity,
-    cust: customer,
-    add: req.user.address,
   });
 });
 
