@@ -28,13 +28,16 @@ const search = (str) => {
         var date = $("<li></li>").html(
           `<span class="lead mr-4 text-primary">Date:</span> ${element.date}`
         );
+        var quan = $("<li></li>").html(
+          `<span class="lead mr-4 text-primary">Quantity:</span> ${element.quantity}`
+        );
         var btn = document.createElement("a");
         btn.href = `/transactions/update/${element.id}`;
         btn.innerHTML = "Mark as delivered";
         $(btn).addClass("btn btn-success float-right");
         $(email).append(btn);
         $(d1).addClass("card p-4");
-        $(d1).append(email, sess, cust, amt, bk, date);
+        $(d1).append(email, sess, cust, amt, bk, quan, date);
         $("#transactions").append(d1);
       }
     })

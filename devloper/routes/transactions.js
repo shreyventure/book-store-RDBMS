@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const {
-  ensureAuthenticatedDEV,
-  forwardAuthenticatedDEV,
-} = require("../config/auth");
+const { ensureAuthenticatedDEV } = require("../config/auth");
 
 //Create Mysql connections -----
 
@@ -31,7 +28,7 @@ DB.connect((err) => {
 });
 // -----------------------------
 
-router.get("/search", async (req, res) => {
+router.get("/search", ensureAuthenticatedDEV, async (req, res) => {
   try {
     const response = await axios.get(
       "http://localhost:8000/transactions/query"
@@ -41,7 +38,7 @@ router.get("/search", async (req, res) => {
     console.error(error);
   }
 });
-router.get("/query", (req, res) => {
+router.get("/query", ensureAuthenticatedDEV, (req, res) => {
   const str = req.query.str;
   if (str) {
     var Q = `SELECT * from transactions WHERE (INSTR(custid, "${str}") != 0 or INSTR(sessid, "${str}") != 0 or INSTR(userEmail, "${str}") != 0) and delivered IS FALSE;`;
@@ -53,7 +50,7 @@ router.get("/query", (req, res) => {
     res.json(result);
   });
 });
-router.get("/update/:id", (req, res) => {
+router.get("/update/:id", ensureAuthenticatedDEV, (req, res) => {
   const id = req.params.id;
   const Q = `UPDATE transactions SET delivered = TRUE, delivery_date = CURRENT_TIMESTAMP WHERE id = ${id}`;
   DB.query(Q, (err, result) => {
