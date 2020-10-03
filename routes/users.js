@@ -263,6 +263,7 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
         sessid: session.id,
         quantity: quantity,
         amount: session.amount_total / 100,
+        userEmail: customer.email,
       };
       DB.query(QQ, [options], (Err, Result) => {
         if (Err) throw Err;

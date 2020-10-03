@@ -1,0 +1,10 @@
+.container input {
+  background: transparent;
+  border: 1px solid grey;
+  color: antiquewhite;
+}
+.container input:focus {
+  background: transparent;
+  border: 1px solid grey;
+  color: antiquewhite;
+}

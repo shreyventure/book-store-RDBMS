@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/addProduct.css" />
+    <link rel="stylesheet" href="/transactions.css" />
+    <title>Book Store (ADMIN)</title>
+  </head>
+  <body onload="search('')">
+    <div class="header">
+      <h2>Transactions</h2>
+      <a class="btn btn-warning" href="/products/dev/dashboard">Dashboard</a>
+    </div>
+    <div class="container mt-4">
+      <br />
+      <%- include('./partials/messages'); %>
+      <input
+        class="form-control"
+        placeholder="Search Transactions..."
+        oninput="search(this.value)"
+        type="text"
+        name="search"
+        id="search"
+      />
+      <div id="transactions" class="mt-4 mb-4"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/query.js"></script>
+  </body>
+</html>

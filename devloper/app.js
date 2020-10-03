@@ -42,6 +42,7 @@ app.use(function (req, res, next) {
 
 // Routes
 app.use("/products", require("./routes/products.js"));
+app.use("/transactions", require("./routes/transactions"));
 app.get("*", (req, res) => {
   res.redirect("/products/login");
 });
