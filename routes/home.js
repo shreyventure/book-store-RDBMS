@@ -52,7 +52,6 @@ router.get("/store/:id", ensureAuthenticated, async (req, res) => {
   for (var i = 0; i < data.length; i++) {
     if (data[i].id == id) {
       var desc = data[i].description.replace(/<(?:.|\n)*?>/gm, "");
-
       res.render("book", {
         name: name,
         product: data[i],

@@ -250,7 +250,6 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
   const { quantity, bookID, bookName, bookImg } = req.query;
   const session = await stripe.checkout.sessions.retrieve(sessID);
   const customer = await stripe.customers.retrieve(session.customer);
-
   const Q = `UPDATE products SET availability = availability - ${quantity} WHERE id = ?`;
   DB.query(Q, [bookID], (err, result) => {
     if (err) throw err;
@@ -265,6 +264,7 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
         amount: session.amount_total / 100,
         userEmail: customer.email,
       };
+
       DB.query(QQ, [options], (Err, Result) => {
         if (Err) throw Err;
         if (Result) {

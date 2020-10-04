@@ -74,8 +74,11 @@
       document.getElementById("verify").style.display = "block";
     } else {
       document.getElementById("verify").style.display = "none";
+      var title = `<%= product.name.replace("'","") %>`;
+      title = title.replace("`", "");
+      title = title.replace('"', "");
       fetch(
-        `/charge/?amt=<%= product.cost %>&quan=${quan}&title=<%= product.name %>&bookID=<%= product.id %>&bookName=<%= product.name %>&bookImg=<%= product.image %>`,
+        `/charge/?amt=<%= product.cost %>&quan=${quan}&title=${title}&bookID=<%= product.id %>&bookName=<%= product.name %>&bookImg=<%= product.image %>`,
         {
           method: "POST",
         }
