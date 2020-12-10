@@ -83,7 +83,7 @@ router.post("/charge/", ensureAuthenticated, async (req, res) => {
   });
   res.json({ id: session.id });
 });
-router.post("/store/search", ensureAuthenticated, async (req, res) => {
+router.post("/store/search", async (req, res) => {
   const { query } = req.body;
   const config = {
     method: "get",
