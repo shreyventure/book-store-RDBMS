@@ -214,11 +214,34 @@ router.get("/profile", ensureAuthenticated, (req, res) => {
         }
       });
     } else {
-      res.render("profile", {
-        user: req.user,
-        name: name,
-        purchases: [],
-        pendingPurchases: [],
+      DB.query(Q_Not_Delivered, (err, RESULT) => {
+        if (err) throw err;
+        if (RESULT.length > 0) {
+          var QQ_Not_Delivered = "";
+          for (let i = 0; i < RESULT.length; i++) {
+            QQ_Not_Delivered =
+              QQ_Not_Delivered +
+              `SELECT * FROM products WHERE id = ${RESULT[i].bookid}; `;
+          }
+          DB.query(QQ_Not_Delivered, (err, RESS) => {
+            if (err) throw err;
+            if (RESS) {
+              res.render("profile", {
+                user: req.user,
+                name: name,
+                purchases: [],
+                pendingPurchases: RESS,
+              });
+            }
+          });
+        } else {
+          res.render("profile", {
+            user: req.user,
+            name: name,
+            purchases: [],
+            pendingPurchases: [],
+          });
+        }
       });
     }
   });
@@ -312,15 +335,24 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
   });
 });
 
+// Cancel transactions
 router.get("/transactions/cancel", ensureAuthenticated, (req, res) => {
   const { bookid, email, confirmed } = req.query;
   if (confirmed) {
-    const Q = `DELETE FROM transactions WHERE bookid = ${bookid} and userEmail = "${email}" and delivered is false`;
-    DB.query(Q, (err, _result) => {
+    const Q_quan = `SELECT quantity FROM transactions WHERE bookid = ${bookid} and userEmail = "${email}" and delivered is false`;
+    DB.query(Q_quan, (err, Quant) => {
       if (err) throw err;
-      else {
-        res.redirect("/users/profile");
-      }
+      const Q_Del = `DELETE FROM transactions WHERE bookid = ${bookid} and userEmail = "${email}" and delivered is false`;
+      DB.query(Q_Del, (err, _result) => {
+        if (err) throw err;
+        else {
+          const Q_Upd = `UPDATE products SET availability = availability + ${Quant[0].quantity} WHERE id = ${bookid}`;
+          DB.query(Q_Upd, (err, _RES) => {
+            if (err) throw err;
+            else res.redirect("/users/profile");
+          });
+        }
+      });
     });
   } else {
     res.render("cancelTransaction", {

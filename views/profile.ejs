@@ -493,7 +493,6 @@
                   alt="product"
                 />
                 <p class="lead mt-3 mb-1"><%= pendingPurchases[i][0].name %></p>
-                <p>₹ <%= pendingPurchases[i][0].cost %></p>
                 <a
                   href="/users/transactions/cancel?bookid=<%= pendingPurchases[i][0].id %>&email=<%= user.email %>"
                   class="btn-danger btn"
@@ -530,7 +529,6 @@
                   alt="product"
                 />
                 <p class="lead mt-3"><%= pendingPurchases[0].name %></p>
-                <p>₹ <%= pendingPurchases[0].cost %></p>
                 <a
                   href="/users/transactions/cancel?bookid=<%= pendingPurchases[0].id %>&email=<%= user.email %>"
                   class="btn-danger btn"
