@@ -184,23 +184,32 @@ router.get("/profile", ensureAuthenticated, (req, res) => {
         if (Result) {
           DB.query(Q_Not_Delivered, (err, RESULT) => {
             if (err) throw err;
-            var QQ_Not_Delivered = "";
-            for (let i = 0; i < RESULT.length; i++) {
-              QQ_Not_Delivered =
-                QQ_Not_Delivered +
-                `SELECT * FROM products WHERE id = ${RESULT[i].bookid}; `;
-            }
-            DB.query(QQ_Not_Delivered, (err, RESS) => {
-              if (err) throw err;
-              if (RESS) {
-                res.render("profile", {
-                  user: req.user,
-                  name: name,
-                  purchases: Result,
-                  pendingPurchases: RESS,
-                });
+            if (RESULT.length > 0) {
+              var QQ_Not_Delivered = "";
+              for (let i = 0; i < RESULT.length; i++) {
+                QQ_Not_Delivered =
+                  QQ_Not_Delivered +
+                  `SELECT * FROM products WHERE id = ${RESULT[i].bookid}; `;
               }
-            });
+              DB.query(QQ_Not_Delivered, (err, RESS) => {
+                if (err) throw err;
+                if (RESS) {
+                  res.render("profile", {
+                    user: req.user,
+                    name: name,
+                    purchases: Result,
+                    pendingPurchases: RESS,
+                  });
+                }
+              });
+            } else {
+              res.render("profile", {
+                user: req.user,
+                name: name,
+                purchases: Result,
+                pendingPurchases: [],
+              });
+            }
           });
         }
       });
@@ -209,6 +218,7 @@ router.get("/profile", ensureAuthenticated, (req, res) => {
         user: req.user,
         name: name,
         purchases: [],
+        pendingPurchases: [],
       });
     }
   });
@@ -300,6 +310,23 @@ router.get("/success", ensureAuthenticated, async (req, res) => {
       });
     }
   });
+});
+
+router.get("/transactions/cancel", ensureAuthenticated, (req, res) => {
+  const { bookid, email, confirmed } = req.query;
+  if (confirmed) {
+    const Q = `DELETE FROM transactions WHERE bookid = ${bookid} and userEmail = "${email}" and delivered is false`;
+    DB.query(Q, (err, _result) => {
+      if (err) throw err;
+      else {
+        res.redirect("/users/profile");
+      }
+    });
+  } else {
+    res.render("cancelTransaction", {
+      name: req.user.firstName,
+    });
+  }
 });
 
 module.exports = router;

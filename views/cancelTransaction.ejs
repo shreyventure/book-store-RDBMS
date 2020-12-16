@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/cancelTransaction.css" />
+
+<div
+  id="confirmation"
+  class="text-center card my-5 mx-auto"
+  style="width: 50vw"
+>
+  <div class="card-body py-5">
+    <h2>Are you sure you ?</h2>
+    <p class="text-muted mb-4">
+      Once cancelled, your payment will be deposited in your account within five
+      working days.
+    </p>
+    <a href="/users/profile" class="btn btn-warning mx-2"
+      >Go Back To My Profile</a
+    >
+    <button id="confirm" class="btn btn-danger mx-2" onclick="Confirmed()">
+      Yes Cancel My Order.
+    </button>
+  </div>
+</div>
+
+<div id="loader" class="text-center mt-5">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="45" />
+  </svg>
+  <p class="text-muted mt-2 mb-5 pb-5">Processing your request...</p>
+</div>
+
+<div
+  id="success"
+  style="display: none; margin-bottom: 35vh"
+  class="text-center mt-5"
+>
+  <img
+    width="90"
+    height="90"
+    src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-curved-check-mark-circle-icon-by-vexels.png"
+    alt="Success"
+  />
+  <p class="text-muted mt-3">Your order was cancelled successfully!</p>
+</div>
+
+<script>
+  const loader = document.getElementById("loader");
+  loader.style.display = "none";
+  const confirmation = document.getElementById("confirmation");
+  console.log(window.location);
+  const success = document.getElementById("success");
+  const Confirmed = () => {
+    confirmation.style.display = "none";
+    loader.style.display = "block";
+    setTimeout(() => {
+      loader.style.display = "none";
+      success.style.display = "block";
+      setTimeout(() => {
+        const confirmedURL = window.location.href + "&confirmed=true";
+        window.location.replace(confirmedURL);
+      }, 1500);
+    }, 5000);
+  };
+</script>
