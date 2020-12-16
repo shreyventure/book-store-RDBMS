@@ -163,9 +163,9 @@ router.get("/delete", ensureAuthenticatedDEV, (req, res) => {
     del: false,
   });
 });
-router.get("/delete/:id", (req, res) => {
+router.get("/delete/:id", ensureAuthenticatedDEV, (req, res) => {
   const id = req.params.id;
-  let sql = `DELETE FROM products WHERE id = '${id}'`;
+  let sql = `DELETE FROM products WHERE id = ${id}`;
   DB.query(sql, function (err, result) {
     if (err) throw err;
     res.redirect("/dev/dashboard");
