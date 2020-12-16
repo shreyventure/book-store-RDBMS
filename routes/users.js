@@ -168,21 +168,39 @@ router.get("/profile", ensureAuthenticated, (req, res) => {
   } else {
     name = "guest";
   }
-  const Q = `SELECT bookid FROM transactions WHERE userid = ${req.user.id}`;
-  DB.query(Q, (err, result) => {
+  const Q_Delivered = `SELECT bookid FROM transactions WHERE userid = ${req.user.id} and delivered is true`;
+  const Q_Not_Delivered = `SELECT bookid FROM transactions WHERE userid = ${req.user.id} and delivered is false`;
+  DB.query(Q_Delivered, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      var QQ = "";
+      var QQ_Delivered = "";
       for (let i = 0; i < result.length; i++) {
-        QQ = QQ + `SELECT * FROM products WHERE id = ${result[i].bookid}; `;
+        QQ_Delivered =
+          QQ_Delivered +
+          `SELECT * FROM products WHERE id = ${result[i].bookid}; `;
       }
-      DB.query(QQ, (Err, Result) => {
+      DB.query(QQ_Delivered, (Err, Result) => {
         if (Err) throw Err;
         if (Result) {
-          res.render("profile", {
-            user: req.user,
-            name: name,
-            purchases: Result,
+          DB.query(Q_Not_Delivered, (err, RESULT) => {
+            if (err) throw err;
+            var QQ_Not_Delivered = "";
+            for (let i = 0; i < RESULT.length; i++) {
+              QQ_Not_Delivered =
+                QQ_Not_Delivered +
+                `SELECT * FROM products WHERE id = ${RESULT[i].bookid}; `;
+            }
+            DB.query(QQ_Not_Delivered, (err, RESS) => {
+              if (err) throw err;
+              if (RESS) {
+                res.render("profile", {
+                  user: req.user,
+                  name: name,
+                  purchases: Result,
+                  pendingPurchases: RESS,
+                });
+              }
+            });
           });
         }
       });
@@ -244,7 +262,7 @@ router.post("/profile", (req, res) => {
   }
 });
 
-// todo:  Create a success route      *******************
+// Successful transaction
 router.get("/success", ensureAuthenticated, async (req, res) => {
   const sessID = req.query.session_id;
   const { quantity, bookID, bookName, bookImg } = req.query;
